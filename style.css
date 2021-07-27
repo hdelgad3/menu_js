@@ -1,0 +1,27 @@
+:root{
+    --primary-color: #0d253f;
+    --secondary-color:  #01b4e4;
+    --tertiary-color: #90cea1;
+}
+
+img{
+    width: 30vh;
+    
+}
+button{
+    
+}
+header{
+    padding: 2rem;
+    background-color: var(--primary-color);
+    height: 1rem;
+}
+.content{
+    display: grid;
+    
+}
+.welcome-sec{
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: center;
+}
