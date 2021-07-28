@@ -91,6 +91,7 @@ const displayBtns = dataItems =>{
       }
     });
     });
+    console.log('doees not work');
 };
 
 
