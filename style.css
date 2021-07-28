@@ -9,7 +9,8 @@ img{
     
 }
 button{
-    
+    height:2em;
+    width: 2em;
 }
 header{
     padding: 2rem;
@@ -24,4 +25,12 @@ header{
     display: grid;
     grid-template-columns: 1fr;
     text-align: center;
+}
+.btn-container{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+.data-section{
+
 }
