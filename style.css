@@ -12,9 +12,15 @@ button{
     height:2em;
     width: 2em;
 }
+body{
+    display:flex;
+    align-content: center;
+}
 header{
     padding: 2rem;
-    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 1rem;
 }
 .content{
@@ -30,7 +36,5 @@ header{
     display: flex;
     justify-content: center;
     padding: 2rem;
-}
-.data-section{
-
+    margin: 4rem;
 }

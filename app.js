@@ -1,99 +1,141 @@
-const btns = document.querySelector('.btn-container');
-const dataContainer = document.querySelector('.data-section');
-
-
-
-const fetchUsers = () =>{
-    // fetch needs the url
-    fetch('https://reqres.in/api/users').then(response=>{
-        //fetch will not go to catch if you get a 404 error
-        if(!response.ok){
-            throw Error('Not a 200 status code. Error!');
+const menu = [
+    {
+      id: 1,
+      title: "buttermilk pancakes",
+      category: "breakfast",
+      price: 15.99,
+      img: "./images/item-1.jpeg",
+      desc: `I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed `,
+    },
+    {
+      id: 2,
+      title: "diner double",
+      category: "lunch",
+      price: 13.99,
+      img: "./images/item-2.jpeg",
+      desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `,
+    },
+    {
+      id: 3,
+      title: "godzilla milkshake",
+      category: "shakes",
+      price: 6.99,
+      img: "./images/item-3.jpeg",
+      desc: `ombucha chillwave fanny pack 3 wolf moon street art photo booth before they sold out organic viral.`,
+    },
+    {
+      id: 4,
+      title: "country delight",
+      category: "breakfast",
+      price: 20.99,
+      img: "./images/item-4.jpeg",
+      desc: `Shabby chic keffiyeh neutra snackwave pork belly shoreditch. Prism austin mlkshk truffaut, `,
+    },
+    {
+      id: 5,
+      title: "egg attack",
+      category: "lunch",
+      price: 22.99,
+      img: "./images/item-5.jpeg",
+      desc: `franzen vegan pabst bicycle rights kickstarter pinterest meditation farm-to-table 90's pop-up `,
+    },
+    {
+      id: 6,
+      title: "oreo dream",
+      category: "shakes",
+      price: 18.99,
+      img: "./images/item-6.jpeg",
+      desc: `Portland chicharrones ethical edison bulb, palo santo craft beer chia heirloom iPhone everyday`,
+    },
+    {
+      id: 7,
+      title: "bacon overflow",
+      category: "breakfast",
+      price: 8.99,
+      img: "./images/item-7.jpeg",
+      desc: `carry jianbing normcore freegan. Viral single-origin coffee live-edge, pork belly cloud bread iceland put a bird `,
+    },
+    {
+      id: 8,
+      title: "american classic",
+      category: "lunch",
+      price: 12.99,
+      img: "./images/item-8.jpeg",
+      desc: `on it tumblr kickstarter thundercats migas everyday carry squid palo santo leggings. Food truck truffaut  `,
+    },
+    {
+      id: 9,
+      title: "quarantine buddy",
+      category: "shakes",
+      price: 16.99,
+      img: "./images/item-9.jpeg",
+      desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+    },
+  ];
+  
+  const sectionCenter = document.querySelector('.data-center');
+  
+  const container = document.querySelector('.btn-container');
+  
+  // load items
+  window.addEventListener('DOMContentLoaded', ()=>{
+      displayMenuItems(menu);
+      displayMenuButtons();
+  });
+  
+  
+  const displayMenuItems = (menuItems)=>{
+    let display = menuItems.map(item=>{
+      return(
+        `<article class='menu-item'>
+        <img src=${item.img} class='photo' alt=${item.title}/>
+        <div class='item-info'>
+          <header>
+            <h4>${item.title}</h4>
+            <h4 class='price'>${item.price}</h4>
+          </header>
+          <p>
+          ${item.desc}
+          </p>
+        </div>
+      </article>`
+      );
+  });
+  let displayL =  display.join('');
+  sectionCenter.innerHTML = displayL;
+  };
+  
+  const displayMenuButtons = () =>{
+        //dynamic butttons
+      const categories = menu.reduce((values, item)=>{
+        if(!values.includes(item.category)){
+          values.push(item.category);
         }
-       return response.json();
-    })
-    .then(userData=> {
-        //console.log(userData.data);
-        displayItems(userData.data);
-        
-    })
-    .catch(err=>{
-        console.log(err);
-    });
-}
-
-const displayItems = dataItems =>{
-    // create fake profile that has no last name.
-    let example = {
-        id:7,
-        email: 'fakeEmail@hello.com',
-        first_name: 'Albert',
-        last_name: 'Hoo',
-        avatar: './fakerton.jpeg'
-    };
-    dataItems.push(example);
-    //console.log(dataItems);
-    const occ = ['Writer', 'Editor', 'Associate', 'Designer'];
-    for(let item in dataItems){
-        dataItems[item].occupation = occ[Math.floor(Math.random()*occ.length)];
-
-        console.log(dataItems[item]);
-    }
-    displayBtns(dataItems);
-    let data = dataItems.map(item=>{
-        return(
-            `<article class='menuItem'>
-                <img src=${item.avatar} alt='profile picture' />
-                <div class='profileInfo'>
-                    <h4>  
-                    ${item.first_name}
-                    ${item.last_name}
-                    </h4>
-                    <p>${item.email}</p>
-                    <p>${item.occupation}</p>
-                </div>
-            </article>`
-        );
-    });
-    let display = data.join('');
-    dataContainer.innerHTML = display;
-};
-
-const displayBtns = dataItems =>{
-    const careers = dataItems.reduce((initial, next)=>{
-        if(!initial.includes(next.occupation)){
-            initial.push(next.occupation);
-        }
-        return(initial);
+        return(values);
     }, ['all']);
-
-    const categoryBtns = careers.map(category=>{
-        return(
-            `<button class='filter-btn' type="button" data-id=${category}>${category}</button>`);
-      }).join('');
-
+  
+    const categoryBtns = categories.map(category=>{
+      return(
+          `<button class='filter-btn' type="button" data-id=${category}>${category}</button>`);
+    }).join('');
+    container.innerHTML = categoryBtns;
     const filterBtns = document.querySelectorAll('.filter-btn');
-  // filter buttons 
-  filterBtns.forEach((btn)=>{
-    btn.addEventListener('click',(e)=>{
-      const category = e.currentTarget.dataset.id;
-      //console.log(category);
-      const menuCategory = dataItems.filter(item=>{
-        if(item.category === category){
-          return item;
+    // filter buttons 
+    filterBtns.forEach((btn)=>{
+      btn.addEventListener('click',(e)=>{
+        const category = e.currentTarget.dataset.id;
+        //console.log(category);
+        const menuCategory = menu.filter(item=>{
+          if(item.category === category){
+            return item;
+          }
+        }); 
+        if(category === 'all'){
+          displayMenuItems(menu);
         }
-      }); 
-      if(category === 'all'){
-        displayItems(dataItems);
-      }
-      else{
-        displayItems(menuCategory);
-      }
+        else{
+          displayMenuItems(menuCategory);
+        }
+      });
     });
-    });
-    
-};
-
-
-
-fetchUsers();
+  };
